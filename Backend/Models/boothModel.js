@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 
 const Booth_Schema = mongoose.Schema(
     {
+        ExpoID: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'expo_ManagementModel',
+            required: true
+        },
         boothNumber:
          { type: String,
          required: true,

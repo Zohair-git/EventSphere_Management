@@ -23,7 +23,8 @@ const expoEventSchema =  mongoose.Schema({
  },
     description: { 
     type: String
-    },
+ },
+
     theme: {
     type: String,
     maxlength: 100
