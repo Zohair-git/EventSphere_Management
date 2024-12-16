@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
 const AnalyticsSchema = mongoose.Schema({
-    ExpoID: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'expo_ManagementModel',
-        required: true
-    },
     AttendeeEngagement: {
         type: Number,
         required: true
@@ -19,6 +14,11 @@ const AnalyticsSchema = mongoose.Schema({
         type: String,   
         required: true
     },
+    ExpoID: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'expo_management',
+        required: true
+    }],
 });
 
 const Analytics = mongoose.model('Analytics', AnalyticsSchema);

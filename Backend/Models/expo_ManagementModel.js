@@ -5,7 +5,6 @@ const expoEventSchema =  mongoose.Schema({
     title: {
     type: String, 
     required: true,
-    maxlength: 200 
 },
     date: {
     type: Date,
@@ -13,20 +12,17 @@ const expoEventSchema =  mongoose.Schema({
 },
     location: {
     type: String,
-    required: true, 
-    maxlength: 300 
+    required: true,
 },
-    booths: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'boothModel',
-    required: true
- },
+
     description: { 
-    type: String
+    type: String,
+    required:true
  },
 
     theme: {
     type: String,
+    required:true,
     maxlength: 100
  }
 

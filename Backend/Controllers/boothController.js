@@ -1,6 +1,7 @@
-const {boothschema} = require('../Models/boothModel');  
-  
-  // Create: Booth create karna
+const { boothschema } = require('../Models/boothModel'); 
+
+
+// Create: Booth create karna
 const createBooth = async (req, res) => {
     try {
         const newBooth = new boothschema(req.body);
@@ -14,7 +15,7 @@ const createBooth = async (req, res) => {
 // Read: Sab Booths ko get karna
 const getAllBooths = async (req, res) => {
     try {
-        const booths = await boothschema.find();
+        const booths = await boothschema.find().populate('ExpoID');  // Populate ExpoID here
         res.status(200).json({ message: "Booths fetched successfully!", data: booths });
     } catch (error) {
         res.status(400).json({ message: "Error fetching Booths", error: error.message });
@@ -24,7 +25,7 @@ const getAllBooths = async (req, res) => {
 // Read: Specific Booth ko get karna by ID
 const getBoothById = async (req, res) => {
     try {
-        const booth = await boothschema.findById(req.params.id);
+        const booth = await boothschema.findById(req.params.id).populate('ExpoID');  // Populate ExpoID here
         if (!booth) {
             return res.status(404).json({ message: "Booth not found" });
         }

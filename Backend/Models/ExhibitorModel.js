@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 
 const ExhibitorSchema = mongoose.Schema(
     {
-        userID: {
+        userID: [{
             type: mongoose.Schema.ObjectId,
-            ref: 'UserModel',
+            ref: 'users',
             required: true
-        },
-        CompanyName:
-         { type: String,
+          }],
+            CompanyName:
+            { type: String,
          required: true,
          },
 
@@ -37,11 +37,12 @@ const ExhibitorSchema = mongoose.Schema(
          { type: String,
            required:true
          },
-         userID: {
+
+         boothID: [{
             type: mongoose.Schema.ObjectId,
-            ref: 'boothModel',
+            ref: 'booths',
             required: true
-        },
+        }],
     }
 );
 

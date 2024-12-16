@@ -1,5 +1,5 @@
 const { ExpoEvent } = require('../Models/expo_ManagementModel'); // ExpoEvent model import
-const {boothschema} = require('../Models/boothModel')
+
 
 // Create: Creating ExpoEvent
 const createExpoEvent = async (req, res) => {
@@ -15,7 +15,7 @@ const createExpoEvent = async (req, res) => {
 // Read: Getting All Record of ExpoEvent
 const getAllExpoEvents = async (req, res) => {
     try {
-        const expoEvents = await ExpoEvent.find().populate('booths');
+        const expoEvents = await ExpoEvent.find();
         res.status(200).json({ message: "ExpoEvents fetched successfully!", data: expoEvents });
     } catch (error) {
         res.status(400).json({ message: "Error fetching ExpoEvents", error: error.message });
@@ -25,7 +25,7 @@ const getAllExpoEvents = async (req, res) => {
 // Read: Getting ExpoEvent Record by ID
 const getExpoEventById = async (req, res) => {
     try {
-        const expoEvent = await ExpoEvent.findById(req.params.id).populate('booths');
+        const expoEvent = await ExpoEvent.findById(req.params.id);
         if (!expoEvent) {
             return res.status(404).json({ message: "ExpoEvent not found" });
         }

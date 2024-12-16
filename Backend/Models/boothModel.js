@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 
 const Booth_Schema = mongoose.Schema(
     {
-        ExpoID: {
+        ExpoID: [{
             type: mongoose.Schema.ObjectId,
-            ref: 'expo_ManagementModel',
+            ref: 'expo_management',
             required: true
-        },
+        }],
         boothNumber:
          { type: String,
          required: true,
@@ -14,11 +14,14 @@ const Booth_Schema = mongoose.Schema(
 
         size: 
         { type: String, 
+        required:true,
         maxlength: 50 },
 
-        locationOnFloor:
-         { type: String,
-         maxlength: 100 }
+        Status:
+         { type: String, 
+        required:true,
+
+         }
     }
 );
 
