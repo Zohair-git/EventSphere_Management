@@ -3,7 +3,7 @@ import AdminSideBar from '../../Component/AdminSideBar';
 import $ from 'jquery';
 import 'datatables.net';
 
-const AllUsers = () => {
+const AllEvent = () => {
   useEffect(() => {
     // Initialize DataTable
     $('#datatablesSimple').DataTable();
@@ -13,11 +13,11 @@ const AllUsers = () => {
     <>
       <AdminSideBar>
         <div className="container-fluid px-4">
-          <h1 className="mt-4">Users</h1>
+          <h1 className="mt-4">Events</h1>
           <div className="card mt-4">
             <div className="card-header">
               <i className="fas fa-table me-1" />
-              All Users
+              All Events
             </div>
             <div className="card-body">
               <table id="datatablesSimple">
@@ -84,4 +84,4 @@ const AllUsers = () => {
   );
 };
 
-export default AllUsers;
+export default AllEvent;
