@@ -4,21 +4,21 @@ import AdminHome from './Pages/Admin/Home';
 import AllUsers from './Pages/Admin/AllUsers';
 import AddEvent from './Pages/Admin/AddEvent';
 import AllEvent from './Pages/Admin/AllEvent';
+import ExibiterHome from './Pages/Exhibitor/Home'
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+
+        {/* Admin Routes */}
         <Route path="/admin" element={<AdminHome />} />
-        <Route path="/users" element={<AllUsers />} />
-        <Route path="/addevent" element={<AddEvent />} />
-        <Route path="/allevent" element={<AllEvent />} />
+        <Route path="/admin/users" element={<AllUsers />} />
+        <Route path="/admin/addevent" element={<AddEvent />} />
+        <Route path="/admin/allevent" element={<AllEvent />} />
 
-        <Route path="/exibiter" element={<AdminHome />} />
-
-
-
-
+        {/* Exhibiter Routes */}
+        <Route path="/exibiter" element={<ExibiterHome />} />
       </Routes>
     </BrowserRouter>
   );

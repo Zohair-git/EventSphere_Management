@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../assets/css/styles.css';
 
 const AdminSideBar = ({ children }) => {
   return (
@@ -73,7 +74,7 @@ const AdminSideBar = ({ children }) => {
                             </a>
                             <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <Link to="/users" class="nav-link" href="layout-static.html">Manage User</Link>
+                                    <Link to="/admin/users" class="nav-link" href="layout-static.html">Manage User</Link>
                                 </nav>
                             </div>
                
@@ -84,8 +85,8 @@ const AdminSideBar = ({ children }) => {
                             </a>
                             <div class="collapse" id="collapseLayouts2" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <Link to="/allevent" class="nav-link" href="layout-static.html">All Events</Link>
-                                    <Link to="/addevent" class="nav-link" href="layout-sidenav-light.html">Add Events</Link>
+                                    <Link to="/admin/allevent" class="nav-link" href="layout-static.html">All Events</Link>
+                                    <Link to="/admin/addevent" class="nav-link" href="layout-sidenav-light.html">Add Events</Link>
                                 </nav>
                             </div>
                 
