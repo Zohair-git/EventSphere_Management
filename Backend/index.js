@@ -1,13 +1,18 @@
 const express = require("express");
 
 const App = express();
-
+const cors = require('cors'); 
 require("dotenv").config();
 
 
 // middleware
 App.use(express.json());
 App.use(express.urlencoded({extended:true}))
+App.use(cors({
+    origin: 'http://localhost:3000', // Allow requests only from localhost:3000 (adjust if needed)
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // You can allow other headers if needed
+}));    
 
 // Connection
 const {DbConnection} = require("./Config/Db")
