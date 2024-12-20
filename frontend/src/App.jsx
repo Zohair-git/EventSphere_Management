@@ -14,6 +14,9 @@ const App = () => {
         <Route path="/addevent" element={<AddEvent />} />
         <Route path="/allevent" element={<AllEvent />} />
 
+        <Route path="/exibiter" element={<AdminHome />} />
+
+
 
 
       </Routes>

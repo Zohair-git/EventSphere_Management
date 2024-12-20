@@ -8,7 +8,7 @@ const Home = () => {
     <>
      <AdminSideBar>
       <div className="container-fluid px-4">
-        <h1 className="mt-4">Dashboard</h1>
+        <h1 className="mt-4">Dashboard(Admin)</h1>
         <ol className="breadcrumb mb-4">
           <li className="breadcrumb-item active">Overview</li>
         </ol>
