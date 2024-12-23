@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AdminSideBar from '../../Component/AdminSideBar';
+import axios from 'axios';  // Importing axios
 
 const AddEvent = () => {
   const [eventData, setEventData] = useState({
@@ -10,6 +11,10 @@ const AddEvent = () => {
     theme: ''
   });
 
+  const [loading, setLoading] = useState(false);  // For loading state
+  const [error, setError] = useState(null);       // For error handling
+  const [success, setSuccess] = useState(false);  // To show success message
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEventData({
@@ -18,10 +23,37 @@ const AddEvent = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(eventData);
-    // Here you would typically send the data to the server or handle further actions
+    
+    setLoading(true); // Start loading
+    setError(null); // Reset error
+    setSuccess(false); // Reset success message
+    
+    try {
+      const response = await axios.post('http://localhost:4000/expo', eventData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      // Success Response
+      console.log(response.data);
+      setSuccess(true);
+      setEventData({
+        title: '',
+        date: '',
+        location: '',
+        description: '',
+        theme: ''
+      });
+
+    } catch (err) {
+      setError(err.response ? err.response.data.message : err.message);
+      console.error(err);
+    } finally {
+      setLoading(false); // End loading
+    }
   };
 
   return (
@@ -29,7 +61,7 @@ const AddEvent = () => {
       <AdminSideBar>
         <div className="container-fluid px-4">
           <h1 className="mt-4 text-center">Add New Event</h1>
-          
+
           <div className="row justify-content-center">
             <div className="col-xl-8 col-md-10">
               <div className="card shadow-sm border-0">
@@ -104,7 +136,12 @@ const AddEvent = () => {
                       />
                     </div>
 
-                    <button type="submit" className="btn btn-primary btn-block">Add Event</button>
+                    {error && <div className="alert alert-danger">{error}</div>}
+                    {success && <div className="alert alert-success">Event added successfully!</div>}
+
+                    <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
+                      {loading ? 'Adding Event...' : 'Add Event'}
+                    </button>
                   </form>
                 </div>
               </div>
