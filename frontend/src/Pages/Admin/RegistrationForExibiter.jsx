@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AdminSideBar from '../../Component/AdminSideBar';
 import axios from 'axios';
 
-const AllExhibitor = () => {
+const AllUser = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -95,6 +95,41 @@ const AllExhibitor = () => {
     }
   };
 
+  const handleAccept = async (user) => {
+    try {
+      // Assuming user.userID is an array and userID[0]._id holds the correct user ID
+      const userId = user.userID && user.userID[0] ? user.userID[0]._id : null;
+  
+      if (!userId) {
+        throw new Error('User ID not found');
+      }
+  
+      const response = await axios.put(
+        `http://localhost:4000/user/${userId}`, // Use the correct user ID from user.userID[0]._id
+        { UserRole: 'Exibiter' }
+      );
+  
+      console.log('User updated to Exhibitor:', response.data);
+  
+      // Display an alert when the user is successfully updated
+      alert('User role updated to Admin successfully!');
+  
+      // Optionally, update the users list locally
+      setUsers((prevUsers) =>
+        prevUsers.map((u) =>
+          u._id === user._id ? { ...u, userID: [{ ...u.userID[0], UserRole: 'Admin' }] } : u
+        )
+      );
+    } catch (err) {
+      console.error('Error updating user role:', err.response ? err.response.data : err.message);
+      alert('Failed to update user role!');
+    }
+  };
+  
+  
+  
+  
+
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this exhibitor?');
     if (confirmDelete) {
@@ -128,11 +163,13 @@ const AllExhibitor = () => {
                   <thead>
                     <tr>
                       <th scope="col">#</th>
+                      <th scope="col">User Name</th>
                       <th scope="col">Company Name</th>
                       <th scope="col">Logo</th>
                       <th scope="col">Description</th>
                       <th scope="col">Contact Details</th>
                       <th scope="col">Product Categories</th>
+                      <th scope="col">Booth</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
@@ -140,6 +177,7 @@ const AllExhibitor = () => {
                     {users.map((user, index) => (
                       <tr key={user._id}>
                         <th scope="row">{index + 1}</th>
+                        <td>{user.userID && user.userID[0] ? user.userID[0].Name : 'N/A'}</td>
                         <td>{user.CompanyName}</td>
                         <td>
                           <img src={user.Logo} alt="Logo" width="50" />
@@ -147,8 +185,9 @@ const AllExhibitor = () => {
                         <td>{user.Description}</td>
                         <td>{user.ContactDetails}</td>
                         <td>{user.ProductCategories}</td>
+                        <td>{user.boothID && user.boothID[0] ? user.boothID[0].boothNumber : 'N/A'}</td>
                         <td>
-                          <button className="btn btn-success m-1" onClick={() => handleUpdateClick(user)}>
+                          <button className="btn btn-success m-1" onClick={() => handleAccept(user)}>
                             Accept
                           </button>
                           <button className="btn btn-danger m-1" onClick={() => handleDelete(user._id)}>
@@ -265,4 +304,4 @@ const AllExhibitor = () => {
   );
 };
 
-export default AllExhibitor;
+export default AllUser;
