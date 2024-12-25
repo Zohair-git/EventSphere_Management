@@ -2,26 +2,26 @@ import React, { useEffect, useState } from 'react';
 import AdminSideBar from '../../Component/AdminSideBar';
 import axios from 'axios';
 
-const AllUser = () => {
+const AllExhibitor = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false); // Modal visibility
-  const [currentUser, setCurrentUser] = useState(null); // Current user being updated
-  const [updatedUser, setUpdatedUser] = useState({}); // Updated user data
+  const [currentUser, setCurrentUser] = useState(null); // Current exhibitor being updated
+  const [updatedUser, setUpdatedUser] = useState({}); // Updated exhibitor data
   const [modalErrors, setModalErrors] = useState({}); // Validation errors for modal fields
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/user');
+        const response = await axios.get('http://localhost:4000/exhibitor');
         if (response.data && Array.isArray(response.data.data)) {
-          setUsers(response.data.data); // Use response.data.data for the users array
+          setUsers(response.data.data); // Use response.data.data for the exhibitors array
         } else {
           throw new Error('Unexpected response format');
         }
       } catch (err) {
-        setError(`Failed to fetch users: ${err.message}`);
+        setError(`Failed to fetch exhibitors: ${err.message}`);
       } finally {
         setLoading(false);
       }
@@ -32,7 +32,7 @@ const AllUser = () => {
 
   const handleUpdateClick = (user) => {
     setCurrentUser(user);
-    setUpdatedUser({ ...user }); // Copy the current user data for editing
+    setUpdatedUser({ ...user }); // Copy the current exhibitor data for editing
     setModalErrors({});
     setShowModal(true);
   };
@@ -50,20 +50,20 @@ const AllUser = () => {
 
   const validateModalFields = () => {
     const errors = {};
-    if (!updatedUser.Name || updatedUser.Name.trim() === '') {
-      errors.Name = 'Name is required.';
+    if (!updatedUser.CompanyName || updatedUser.CompanyName.trim() === '') {
+      errors.CompanyName = 'Company Name is required.';
     }
-    if (!updatedUser.Email || updatedUser.Email.trim() === '') {
-      errors.Email = 'Email is required.';
+    if (!updatedUser.Description || updatedUser.Description.trim() === '') {
+      errors.Description = 'Description is required.';
     }
-    if (!updatedUser.PhoneNumber || !/^\d{11}$/.test(updatedUser.PhoneNumber)) {
-      errors.PhoneNumber = 'Phone number must be 11 digits.';
+    if (!updatedUser.ContactDetails || !/^\d{11}$/.test(updatedUser.ContactDetails)) {
+      errors.ContactDetails = 'Contact number must be 11 digits.';
     }
-    if (!updatedUser.ProfilePic || updatedUser.ProfilePic.trim() === '') {
-      errors.ProfilePic = 'Profile picture URL is required.';
+    if (!updatedUser.Logo || updatedUser.Logo.trim() === '') {
+      errors.Logo = 'Logo URL is required.';
     }
-    if (!updatedUser.UserRole || updatedUser.UserRole.trim() === '') {
-      errors.Role = 'Role is required.';
+    if (!updatedUser.ProductCategories || updatedUser.ProductCategories.trim() === '') {
+      errors.ProductCategories = 'Product Categories are required.';
     }
     setModalErrors(errors);
     return Object.keys(errors).length === 0;
@@ -76,12 +76,12 @@ const AllUser = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:4000/user/${currentUser._id}`,
+        `http://localhost:4000/exhibitor/${currentUser._id}`,
         { ...updatedUser } // Ensure the correct data is sent
       );
       console.log('Update Response:', response.data);
 
-      // Update the users list locally
+      // Update the exhibitors list locally
       setUsers((prevUsers) =>
         prevUsers.map((user) =>
           user._id === currentUser._id ? { ...user, ...updatedUser } : user
@@ -91,20 +91,20 @@ const AllUser = () => {
       setShowModal(false); // Close the modal
     } catch (err) {
       console.error('Update Error:', err);
-      alert('Failed to update user!');
+      alert('Failed to update exhibitor!');
     }
   };
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this user?');
+    const confirmDelete = window.confirm('Are you sure you want to delete this exhibitor?');
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:4000/user/${id}`);
-        // Remove the deleted user from the state
+        await axios.delete(`http://localhost:4000/exhibitor/${id}`);
+        // Remove the deleted exhibitor from the state
         setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
       } catch (err) {
         console.error('Delete Error:', err);
-        alert('Failed to delete user!');
+        alert('Failed to delete exhibitor!');
       }
     }
   };
@@ -112,27 +112,27 @@ const AllUser = () => {
   return (
     <AdminSideBar>
       <div className="container-fluid px-4">
-        <h1 className="mt-4">Users</h1>
+        <h1 className="mt-4">Exhibitors</h1>
         <div className="card mt-4">
           <div className="card-header">
             <i className="fas fa-table me-1" />
-            All Users
+            All Exhibitors
           </div>
           <div className="card-body">
-            {loading && <p>Loading users...</p>}
+            {loading && <p>Loading exhibitors...</p>}
             {error && <div className="alert alert-danger">{error}</div>}
-            {!loading && !error && users.length === 0 && <p>No users found.</p>}
+            {!loading && !error && users.length === 0 && <p>No exhibitors found.</p>}
             {!loading && !error && users.length > 0 && (
               <div className="table-responsive">
                 <table className="table table-striped-columns">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Phone Number</th>
-                      <th scope="col">Profile Picture</th>
-                      <th scope="col">Role</th>
+                      <th scope="col">Company Name</th>
+                      <th scope="col">Logo</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Contact Details</th>
+                      <th scope="col">Product Categories</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
@@ -140,19 +140,19 @@ const AllUser = () => {
                     {users.map((user, index) => (
                       <tr key={user._id}>
                         <th scope="row">{index + 1}</th>
-                        <td>{user.Name}</td>
-                        <td>{user.Email}</td>
-                        <td>{user.PhoneNumber}</td>
+                        <td>{user.CompanyName}</td>
                         <td>
-                          <img src={user.ProfilePic} alt="Profile" width="50" />
+                          <img src={user.Logo} alt="Logo" width="50" />
                         </td>
-                        <td>{user.UserRole}</td>
+                        <td>{user.Description}</td>
+                        <td>{user.ContactDetails}</td>
+                        <td>{user.ProductCategories}</td>
                         <td>
                           <button className="btn btn-success m-1" onClick={() => handleUpdateClick(user)}>
-                            Update
+                            Accept
                           </button>
                           <button className="btn btn-danger m-1" onClick={() => handleDelete(user._id)}>
-                            Delete
+                            Reject
                           </button>
                         </td>
                       </tr>
@@ -171,7 +171,7 @@ const AllUser = () => {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Update User</h5>
+                <h5 className="modal-title">Update Exhibitor</h5>
                 <button
                   type="button"
                   className="btn-close"
@@ -180,67 +180,65 @@ const AllUser = () => {
               </div>
               <div className="modal-body">
                 <div className="mb-3">
-                  <label className="form-label">Name</label>
+                  <label className="form-label">Company Name</label>
                   <input
                     type="text"
-                    name="Name"
-                    value={updatedUser.Name || ''}
-                    className={`form-control ${modalErrors.Name ? 'is-invalid' : ''}`}
+                    name="CompanyName"
+                    value={updatedUser.CompanyName || ''}
+                    className={`form-control ${modalErrors.CompanyName ? 'is-invalid' : ''}`}
                     onChange={handleInputChange}
                   />
-                  {modalErrors.Name && <div className="invalid-feedback">{modalErrors.Name}</div>}
+                  {modalErrors.CompanyName && <div className="invalid-feedback">{modalErrors.CompanyName}</div>}
                 </div>
                 <div className="mb-3">
-                  <label className="form-label">Email</label>
-                  <input
-                    type="email"
-                    name="Email"
-                    value={updatedUser.Email || ''}
-                    className={`form-control ${modalErrors.Email ? 'is-invalid' : ''}`}
-                    onChange={handleInputChange}
-                  />
-                  {modalErrors.Email && <div className="invalid-feedback">{modalErrors.Email}</div>}
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Phone Number</label>
+                  <label className="form-label">Description</label>
                   <input
                     type="text"
-                    name="PhoneNumber"
-                    value={updatedUser.PhoneNumber || ''}
-                    className={`form-control ${modalErrors.PhoneNumber ? 'is-invalid' : ''}`}
+                    name="Description"
+                    value={updatedUser.Description || ''}
+                    className={`form-control ${modalErrors.Description ? 'is-invalid' : ''}`}
                     onChange={handleInputChange}
                   />
-                  {modalErrors.PhoneNumber && (
-                    <div className="invalid-feedback">{modalErrors.PhoneNumber}</div>
+                  {modalErrors.Description && <div className="invalid-feedback">{modalErrors.Description}</div>}
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Contact Details</label>
+                  <input
+                    type="text"
+                    name="ContactDetails"
+                    value={updatedUser.ContactDetails || ''}
+                    className={`form-control ${modalErrors.ContactDetails ? 'is-invalid' : ''}`}
+                    onChange={handleInputChange}
+                  />
+                  {modalErrors.ContactDetails && (
+                    <div className="invalid-feedback">{modalErrors.ContactDetails}</div>
                   )}
                 </div>
                 <div className="mb-3">
-                  <label className="form-label">Profile Picture URL</label>
+                  <label className="form-label">Logo URL</label>
                   <input
                     type="text"
-                    name="ProfilePic"
-                    value={updatedUser.ProfilePic || ''}
-                    className={`form-control ${modalErrors.ProfilePic ? 'is-invalid' : ''}`}
+                    name="Logo"
+                    value={updatedUser.Logo || ''}
+                    className={`form-control ${modalErrors.Logo ? 'is-invalid' : ''}`}
                     onChange={handleInputChange}
                   />
-                  {modalErrors.ProfilePic && (
-                    <div className="invalid-feedback">{modalErrors.ProfilePic}</div>
+                  {modalErrors.Logo && (
+                    <div className="invalid-feedback">{modalErrors.Logo}</div>
                   )}
                 </div>
                 <div className="mb-3">
-                  <label className="form-label">Role</label>
-                  <select
-                    name="UserRole"
-                    value={updatedUser.UserRole || ''}
-                    className={`form-control ${modalErrors.Role ? 'is-invalid' : ''}`}
+                  <label className="form-label">Product Categories</label>
+                  <input
+                    type="text"
+                    name="ProductCategories"
+                    value={updatedUser.ProductCategories || ''}
+                    className={`form-control ${modalErrors.ProductCategories ? 'is-invalid' : ''}`}
                     onChange={handleInputChange}
-                  >
-                    <option value="">Select Role</option>
-                    <option value="Admin">Admin</option>
-                    <option value="Exibiter">Exibiter</option>
-                    <option value="Attendee">Attendee</option>
-                  </select>
-                  {modalErrors.Role && <div className="invalid-feedback">{modalErrors.Role}</div>}
+                  />
+                  {modalErrors.ProductCategories && (
+                    <div className="invalid-feedback">{modalErrors.ProductCategories}</div>
+                  )}
                 </div>
               </div>
               <div className="modal-footer">
@@ -267,4 +265,4 @@ const AllUser = () => {
   );
 };
 
-export default AllUser;
+export default AllExhibitor;

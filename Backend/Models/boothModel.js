@@ -17,7 +17,7 @@ const Booth_Schema = mongoose.Schema(
         required:true,
         maxlength: 50 },
 
-        Status:
+        status:
          { type: String, 
         required:true,
 

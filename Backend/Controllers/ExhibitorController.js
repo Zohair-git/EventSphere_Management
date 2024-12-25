@@ -19,6 +19,7 @@ const getAllExhibitors = async (req, res) => {
             .populate('boothID'); // Populate booth details
         res.status(200).json({ message: "Exhibitors fetched successfully!", data: exhibitors });
     } catch (error) {
+        console.error(error);
         res.status(400).json({ message: "Error fetching exhibitors", error: error.message });
     }
 };
