@@ -11,6 +11,7 @@ import AsignAbooth from './Pages/Admin/AssignBooth';
 import Login from './Pages/Auth/Login';
 import SignUp from './Pages/Auth/Signup';
 import AllSession from './Pages/Admin/Allsessions';
+import AddSession from './Pages/Admin/Addsession';
 
 const App = () => {
   return (
@@ -30,6 +31,8 @@ const App = () => {
         <Route path="/admin/registration" element={<AllExhibitor />} />
         <Route path="/admin/asignbooth" element={<AsignAbooth />} />
         <Route path="/admin/allsession" element={<AllSession />} />
+        <Route path="/admin/addsession" element={<AddSession />} />
+
 
 
 

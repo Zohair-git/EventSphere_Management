@@ -146,7 +146,7 @@ const AllSession = () => {
                         <td>{session.Location}</td>
                         <td>{new Date(session.StartTime).toLocaleString()}</td>
                         <td>{new Date(session.EndTime).toLocaleString()}</td>
-                        <td>{session.ExpoID.join(', ')}</td>
+                        <td>{session.ExpoID && session.ExpoID[0] ? session.ExpoID[0].title : 'No Expo Assigned'}</td>
                         <td>
                           <button className="btn btn-success m-1" onClick={() => handleUpdateClick(session)}>
                             Update
