@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AdminSideBar from '../../Component/AdminSideBar';
 import axios from 'axios';
 
-const AllUser = () => {
+const AllExhibitor = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,7 +16,9 @@ const AllUser = () => {
       try {
         const response = await axios.get('http://localhost:4000/exhibitor');
         if (response.data && Array.isArray(response.data.data)) {
-          setUsers(response.data.data); // Use response.data.data for the exhibitors array
+          // Filter users to exclude those with UserRole: 'Exhibitor'
+          const filteredUsers = response.data.data.filter(user => user.userID && user.userID[0] && user.userID[0].UserRole !== 'Exhibitor');
+          setUsers(filteredUsers);
         } else {
           throw new Error('Unexpected response format');
         }
@@ -104,29 +106,22 @@ const AllUser = () => {
         throw new Error('User ID not found');
       }
   
+      // Update the user role to "Exhibitor" in the backend
       const response = await axios.put(
-        `http://localhost:4000/user/${userId}`, // Use the correct user ID from user.userID[0]._id
-        { UserRole: 'Exibiter' }
+        `http://localhost:4000/user/${userId}`,
+        { UserRole: 'Exibiter' } // Set the role to Exhibitor
       );
   
-      console.log('User updated to Exhibitor:', response.data);
   
-      // Display an alert when the user is successfully updated
-      alert('User role updated to Admin successfully!');
-  
-      // Optionally, update the users list locally
+      // Update the users list locally and remove accepted exhibitor from the list
       setUsers((prevUsers) =>
-        prevUsers.map((u) =>
-          u._id === user._id ? { ...u, userID: [{ ...u.userID[0], UserRole: 'Admin' }] } : u
-        )
+        prevUsers.filter((u) => u._id !== user._id) // This removes the user from the list
       );
     } catch (err) {
       console.error('Error updating user role:', err.response ? err.response.data : err.message);
       alert('Failed to update user role!');
     }
   };
-  
-  
   
   
 
@@ -304,4 +299,4 @@ const AllUser = () => {
   );
 };
 
-export default AllUser;
+export default AllExhibitor;

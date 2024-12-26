@@ -100,8 +100,8 @@ const AdminSideBar = ({ children }) => {
                             <div class="collapse" id="collapseLayouts3" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                 <Link to="/admin/registration" class="nav-link" href="layout-static.html">Registration</Link>
-                                    <Link to="/admin" class="nav-link" href="layout-static.html">Applications</Link>
-                                    <Link to="/admin/booths" class="nav-link" href="layout-sidenav-light.html">Assigned Booths</Link>
+                                    <Link to="/admin/asignbooth" class="nav-link" href="layout-static.html">Assign Booth</Link>
+                                    <Link to="/admin/booths" class="nav-link" href="layout-sidenav-light.html">All Booths</Link>
                                 </nav>
                             </div>
                 
@@ -114,7 +114,7 @@ const AdminSideBar = ({ children }) => {
                             <div class="collapse" id="collapseLayouts4" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <Link to="/admin" class="nav-link" href="layout-static.html">Create Event</Link>
-                                    <Link to="/admin" class="nav-link" href="layout-static.html">Manage Session</Link>
+                                    <Link to="/admin/allsession" class="nav-link" href="layout-static.html">Manage Session</Link>
                                 </nav>
                             </div>
                 <Link className="nav-link" to="/admin">

@@ -7,11 +7,19 @@ import AllEvent from './Pages/Admin/AllEvent';
 import ExibiterHome from './Pages/Exhibitor/Home'
 import AllAssignedbooths from './Pages/Admin/AllAssignedbooths';
 import AllExhibitor from './Pages/Admin/RegistrationForExibiter'; 
+import AsignAbooth from './Pages/Admin/AssignBooth';
+import Login from './Pages/Auth/Login';
+import SignUp from './Pages/Auth/Signup';
+import AllSession from './Pages/Admin/Allsessions';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+
+        {/* Auth Routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/SignUp" element={<SignUp />} />
 
         {/* Admin Routes */}
         <Route path="/admin" element={<AdminHome />} />
@@ -20,6 +28,10 @@ const App = () => {
         <Route path="/admin/allevent" element={<AllEvent />} />
         <Route path="/admin/booths" element={<AllAssignedbooths />} />
         <Route path="/admin/registration" element={<AllExhibitor />} />
+        <Route path="/admin/asignbooth" element={<AsignAbooth />} />
+        <Route path="/admin/allsession" element={<AllSession />} />
+
+
 
 
 
