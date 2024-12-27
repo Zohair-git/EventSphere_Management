@@ -10,31 +10,38 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      const response = await axios.post('http://localhost:4000/login', {
-        Email,
-        Password,
-      });
-
+      const response = await axios.get('http://localhost:4000/user');
+  
       if (response.status === 200) {
-        const userData = response.data;
-
-        // Check the user role and redirect accordingly
-        if (userData.UserRole === 'Admin') {
-          navigate('/admin');  // Redirect to the Admin Dashboard
-        } else if (userData.UserRole === 'Exibiter') {
-          navigate('/exhibiter');  // Redirect to Exhibitor Dashboard
+        const users = response.data.data; // Access the array of users
+        const user = users.find(
+          (u) => u.Email === Email && u.Password === Password
+        );
+  
+        if (user) {
+          // Check the user role and redirect accordingly
+          if (user.UserRole === 'Admin') {
+            navigate('/admin'); // Redirect to the Admin Dashboard
+          } else if (user.UserRole === 'Exibiter') {
+            navigate('/exibiter'); // Redirect to Exhibitor Dashboard
+          } else if(user.UserRole === 'Attendee'){
+            navigate('/'); // Redirect to Attendee Dashboard
+          }
+          else {
+            setMessage('Unknown role. Please contact support.');
+          }
         } else {
-          setMessage('Unknown role. Please contact support.');
+          setMessage('Invalid email or password.');
         }
       }
     } catch (error) {
       console.error(error);
-      setMessage('Invalid credentials or something went wrong.');
+      setMessage('Something went wrong. Please try again.');
     }
   };
-
+  
   return (
     <>
       <div id="layoutAuthentication">
