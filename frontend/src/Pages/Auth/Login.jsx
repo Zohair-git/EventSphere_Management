@@ -22,6 +22,7 @@ const Login = () => {
   
         if (user) {
           // Check the user role and redirect accordingly
+          localStorage.setItem('user', JSON.stringify(user));
           if (user.UserRole === 'Admin') {
             navigate('/admin'); // Redirect to the Admin Dashboard
           } else if (user.UserRole === 'Exibiter') {
@@ -103,7 +104,13 @@ const Login = () => {
                           </button>
                         </div>
                       </form>
-                      {message && <div className="mt-3 alert alert-info">{message}</div>}
+                      {message && (
+                        <div
+                          className={`mt-3 alert ${message.includes('Invalid email or password.') ? 'alert-danger' : 'alert-info'}`}
+                        >
+                          {message}
+                        </div>
+                      )}
                     </div>
                     <div className="card-footer text-center py-3">
                       <div className="small">

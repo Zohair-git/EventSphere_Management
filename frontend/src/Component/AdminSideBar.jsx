@@ -1,8 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../assets/css/styles.css';
 
+
 const AdminSideBar = ({ children }) => {
+  const navigate = useNavigate(); // Initialize navigate
+
+  // Function to handle logout
+  const handleLogout = () => {
+    localStorage.removeItem('user'); // Remove user data from localStorage
+    navigate('/login'); // Navigate to login page
+  };
   return (
     <>
             <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -50,7 +58,10 @@ const AdminSideBar = ({ children }) => {
               <li><a className="dropdown-item" href="#!">Settings</a></li>
               <li><a className="dropdown-item" href="#!">Activity Log</a></li>
               <li><hr className="dropdown-divider" /></li>
-              <li><a className="dropdown-item" href="#!">Logout</a></li>
+              <li> <a className="dropdown-item" href="#!" onClick={handleLogout}>
+                  Logout
+                </a></li>
+              
             </ul>
           </li>
         </ul>
@@ -132,7 +143,7 @@ const AdminSideBar = ({ children }) => {
             </div>
             <div className="sb-sidenav-footer">
               <div className="small">Logged in as:</div>
-               Event Sphere
+               Admin
             </div>
           </nav>
         </div>

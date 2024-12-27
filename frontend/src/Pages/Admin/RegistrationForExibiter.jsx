@@ -17,7 +17,7 @@ const AllExhibitor = () => {
         const response = await axios.get('http://localhost:4000/exhibitor');
         if (response.data && Array.isArray(response.data.data)) {
           // Filter users to exclude those with UserRole: 'Exhibitor'
-          const filteredUsers = response.data.data.filter(user => user.userID && user.userID[0] && user.userID[0].UserRole !== 'Exhibitor');
+          const filteredUsers = response.data.data.filter(user => user.userID && user.userID[0] && user.userID[0].UserRole !== 'Exibiter');
           setUsers(filteredUsers);
         } else {
           throw new Error('Unexpected response format');
