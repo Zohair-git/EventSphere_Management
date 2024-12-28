@@ -12,6 +12,7 @@ import Login from './Pages/Auth/Login';
 import SignUp from './Pages/Auth/Signup';
 import AllSession from './Pages/Admin/Allsessions';
 import AddSession from './Pages/Admin/Addsession';
+import Application from './Pages/Admin/Application';
 
 const App = () => {
   return (
@@ -32,6 +33,8 @@ const App = () => {
         <Route path="/admin/asignbooth" element={<AsignAbooth />} />
         <Route path="/admin/allsession" element={<AllSession />} />
         <Route path="/admin/addsession" element={<AddSession />} />
+        <Route path="/admin/application" element={<Application />} />
+
 
 
 

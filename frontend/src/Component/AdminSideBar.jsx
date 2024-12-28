@@ -111,6 +111,7 @@ const AdminSideBar = ({ children }) => {
                             <div class="collapse" id="collapseLayouts3" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                 <Link to="/admin/registration" class="nav-link" href="layout-static.html">Registration</Link>
+                                <Link to="/admin/application" class="nav-link" href="layout-static.html">Application</Link>
                                     <Link to="/admin/asignbooth" class="nav-link" href="layout-static.html">Assign Booth</Link>
                                     <Link to="/admin/booths" class="nav-link" href="layout-sidenav-light.html">All Booths</Link>
                                 </nav>
