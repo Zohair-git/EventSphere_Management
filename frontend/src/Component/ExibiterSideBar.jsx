@@ -78,14 +78,14 @@ const ExibiterSidebar = ({ children }) => {
                   </div>
                   Dashboard
                 </Link>              
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts">
+                <Link class="nav-link collapsed" to="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                                 Users
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
+                            </Link>
                             <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <Link to="/users" class="nav-link" href="layout-static.html">Manage User</Link>
+                                    <Link to="/exibiter/expo" class="nav-link" >Expos</Link>
                                 </nav>
                             </div>
                

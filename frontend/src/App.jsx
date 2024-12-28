@@ -12,7 +12,7 @@ import Login from './Pages/Auth/Login';
 import SignUp from './Pages/Auth/Signup';
 import AllSession from './Pages/Admin/Allsessions';
 import AddSession from './Pages/Admin/Addsession';
-
+import ExhibiterExpo from './Pages/Exhibitor/ExhibiterExpo';
 const App = () => {
   return (
     <BrowserRouter>
@@ -40,6 +40,7 @@ const App = () => {
 
         {/* Exhibiter Routes */}
         <Route path="/exibiter" element={<ExibiterHome />} />
+        <Route path="/exibiter/expo" element={< ExhibiterExpo/>} />
       </Routes>
     </BrowserRouter>
   );
