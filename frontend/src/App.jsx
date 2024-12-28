@@ -6,13 +6,15 @@ import AddEvent from './Pages/Admin/AddEvent';
 import AllEvent from './Pages/Admin/AllEvent';
 import ExibiterHome from './Pages/Exhibitor/Home'
 import AllAssignedbooths from './Pages/Admin/AllAssignedbooths';
-import AllExhibitor from './Pages/Admin/RegistrationForExibiter'; 
+import AllExhibitor from './Pages/Admin/RegistrationForExibiter';
 import AsignAbooth from './Pages/Admin/AssignBooth';
 import Login from './Pages/Auth/Login';
 import SignUp from './Pages/Auth/Signup';
 import AllSession from './Pages/Admin/Allsessions';
 import AddSession from './Pages/Admin/Addsession';
 import Application from './Pages/Admin/Application';
+import ExhibiterExpo from './Pages/Exhibitor/ExhibiterExpo';
+
 
 const App = () => {
   return (
@@ -43,6 +45,7 @@ const App = () => {
 
         {/* Exhibiter Routes */}
         <Route path="/exibiter" element={<ExibiterHome />} />
+        <Route path="/exibiter/expo" element={< ExhibiterExpo/>} />
       </Routes>
     </BrowserRouter>
   );
