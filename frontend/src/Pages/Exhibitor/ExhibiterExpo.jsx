@@ -127,7 +127,7 @@ const ExhibiterExpo = () => {
                 ></button>
               </div>
               <div className="modal-body">
-                <p>Registering for: {currentEvent?.title}</p>
+                <p>Please Select Available Booth</p>
                 <div className="mb-3">
                   <label htmlFor="boothDropdown" className="form-label">
                     Select Booth
